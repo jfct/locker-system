@@ -6,9 +6,11 @@
 Use 'localhost' in the `MONGO_HOST` env variable, if running the app outside docker containers
 
 ### Tools
--Node
--Express
--Express-validator
--Mongodb
--Mongoose
--Mongo-express
+-node
+-express
+-express-validator
+-mongodb
+-mongoose
+-mongo-migrate-ts
+-mongo-express
+
