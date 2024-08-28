@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import { config } from './config';
+import apiRouter from './routes';
 
 // Mongoose connection
 mongoose.connect(config.mongodb.uri, {})
@@ -12,6 +13,9 @@ mongoose.connect(config.mongodb.uri, {})
 // App start
 const app = express();
 app.use(express.json());
+
+// Import all routes
+app.use('/api', apiRouter);
 
 const PORT = process.env.PORT || 3000;
 
