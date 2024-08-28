@@ -1,4 +1,5 @@
 import { Document, model, Model, Schema } from "mongoose";
+import { uuid } from 'uuidv4';
 
 // I assume we do not want duplicate Bloq names for clarity purposes
 // So I added a unique on the title
@@ -11,6 +12,12 @@ export interface IBloq extends Document {
 };
 
 export const BloqSchema: Schema = new Schema<IBloq>({
+    id: {
+        type: String,
+        default: uuid,
+        required: true,
+        unique: true,
+    },
     title: {
         type: String,
         required: true,
