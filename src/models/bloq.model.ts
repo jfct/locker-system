@@ -1,10 +1,11 @@
 import { Document, model, Model, Schema } from "mongoose";
-import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
+
 
 // I assume we do not want duplicate Bloq names for clarity purposes
 // So I added a unique on the title
 export interface IBloq extends Document {
-    id: Schema.Types.ObjectId;
+    id: string;
     title: string;
     address: string;
     createdAt: Date;
@@ -14,9 +15,8 @@ export interface IBloq extends Document {
 export const BloqSchema: Schema = new Schema<IBloq>({
     id: {
         type: String,
-        default: uuid,
-        required: true,
-        unique: true,
+        default: uuidv4,
+        unique: true
     },
     title: {
         type: String,
@@ -28,8 +28,16 @@ export const BloqSchema: Schema = new Schema<IBloq>({
         required: true
     },
 }, {
-    _id: false,
-    timestamps: true
+    timestamps: true,
+    collection: 'Bloq',
+    toJSON: {
+        transform: function (doc, ret) {
+            delete ret._id;
+            delete ret.__v;
+            return ret;
+        }
+    }
+
 })
 
 const Bloq: Model<IBloq> = model<IBloq>('Bloq', BloqSchema);
