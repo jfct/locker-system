@@ -1,13 +1,15 @@
 import { Document, model, Model, Schema } from "mongoose";
 import { v4 as uuidv4 } from 'uuid';
 
+export interface Bloq {
+    title: string;
+    address: string;
+}
 
 // I assume we do not want duplicate Bloq names for clarity purposes
 // So I added a unique on the title
-export interface IBloq extends Document {
+export interface IBloq extends Bloq, Document {
     id: string;
-    title: string;
-    address: string;
     createdAt: Date;
     updatedAt: Date;
 };
@@ -40,5 +42,5 @@ export const BloqSchema: Schema = new Schema<IBloq>({
 
 })
 
-const Bloq: Model<IBloq> = model<IBloq>('Bloq', BloqSchema);
-export default Bloq;
+const BloqModel: Model<IBloq> = model<IBloq>('Bloq', BloqSchema);
+export default BloqModel;

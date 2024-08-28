@@ -1,11 +1,11 @@
 import { CreateBloqDto } from "../dto/bloq.dto";
-import Bloq, { IBloq } from "../models/bloq.model";
+import BloqModel, { IBloq } from "../models/bloq.model";
 import BaseService from "./base.service";
 
 
-class BloqService extends BaseService<IBloq, CreateBloqDto, typeof Bloq> {
+class BloqService extends BaseService<IBloq, CreateBloqDto, typeof BloqModel> {
     constructor() {
-        super(Bloq);
+        super(BloqModel);
     }
 }
 

@@ -1,4 +1,4 @@
-import { body, param, query } from 'express-validator';
+import { body, query } from 'express-validator';
 import { LockerStatus } from '../types/locker';
 
 export const createLockerValidation = [
@@ -16,15 +16,11 @@ export const createLockerValidation = [
 ];
 
 export const updateLockerValidation = [
-    param('id')
-        .isString()
-        .notEmpty()
-        .withMessage('Locker ID is required'),
     body('bloqId')
         .optional()
-        .isString()
+        .isUUID()
         .notEmpty()
-        .withMessage('bloqId must be a non-empty string'),
+        .withMessage('bloqId must be a non-empty UUID'),
     body('status')
         .optional()
         .isIn(Object.values(LockerStatus))
@@ -35,24 +31,10 @@ export const updateLockerValidation = [
         .withMessage('isOccupied must be a boolean'),
 ];
 
-
-export const deleteLockerValidation = [
-    param('id')
-        .isString()
-        .notEmpty()
-        .withMessage('Locker ID is required'),
-];
-
-export const getLockerValidation = [
-    param('id')
-        .isString()
-        .notEmpty()
-        .withMessage('Locker ID is required'),
-];
-
 export const getLockersByBloqValidation = [
     query('bloqId')
-        .isString()
+        .isUUID()
         .notEmpty()
-        .withMessage('bloqId is required and must be a string'),
+        .withMessage('bloqId is required and must be an UUID'),
 ];
+

@@ -12,7 +12,7 @@ const bloqController = new BloqController();
 bloqRouter.get('/:id', idValidation, handleValidationErrors, bloqController.get.bind(bloqController));
 
 // POST
-bloqRouter.post('/', createBloqValidator, handleValidationErrors, bloqController.create.bind(bloqController));
+bloqRouter.post('/', [...idValidation, ...createBloqValidator], handleValidationErrors, bloqController.create.bind(bloqController));
 
 // PUT
 bloqRouter.put('/:id', [...idValidation, ...updateBloqValidator], handleValidationErrors, bloqController.update.bind(bloqController));

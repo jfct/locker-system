@@ -1,6 +1,3 @@
-export interface BloqDto {
-    id: string;
-    title: string;
-    address: string;
-};
-export interface CreateBloqDto extends Omit<BloqDto, 'id'> { };
+import { Bloq } from "../models/bloq.model";
+
+export interface CreateBloqDto extends Bloq { };
