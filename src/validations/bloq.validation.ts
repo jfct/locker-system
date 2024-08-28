@@ -1,4 +1,4 @@
-import { body, param } from "express-validator";
+import { body } from "express-validator";
 
 export const createBloqValidator = [
     body('title')
@@ -15,10 +15,6 @@ export const createBloqValidator = [
 ];
 
 export const updateBloqValidator = [
-    param('id')
-        .notEmpty().withMessage('Bloq ID is required')
-        .isUUID().withMessage('Invalid Bloq ID'),
-
     body('title')
         .optional()
         .isString().withMessage('Title must be a string')
@@ -30,16 +26,4 @@ export const updateBloqValidator = [
         .isString().withMessage('Address must be a string')
         .trim()
         .isLength({ min: 5, max: 200 }).withMessage('Address must be between 5 and 200 characters'),
-];
-
-export const getBloqValidator = [
-    param('id')
-        .notEmpty().withMessage('Bloq ID is required')
-        .isUUID().withMessage('Invalid Bloq ID'),
-];
-
-export const deleteBloqValidator = [
-    param('id')
-        .notEmpty().withMessage('Bloq ID is required')
-        .isUUID().withMessage('Invalid Bloq ID'),
 ];

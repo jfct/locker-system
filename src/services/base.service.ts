@@ -16,7 +16,7 @@ abstract class BaseService<T extends Document, Dto extends Partial<T>, U extends
     }
 
     public async get(id: string): Promise<T | null> {
-        return this.model.findOne({ id }, { projection: { _id: 0 } }).exec();
+        return this.model.findOne({ id }).exec();
     }
 
     public async update(id: string, payload: Partial<Dto>, session?: mongoose.ClientSession): Promise<T | null> {

@@ -1,9 +1,3 @@
-import { LockerStatus } from "../types/locker";
+import { Locker } from "../models/locker.model";
 
-export interface LockerDto {
-    id: string;
-    bloqId: string;
-    status: LockerStatus;
-    isOccupied?: boolean;
-};
-export interface CreateLockerDto extends Omit<LockerDto, 'id'> { };
+export interface CreateLockerDto extends Locker { };
