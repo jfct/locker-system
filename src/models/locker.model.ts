@@ -1,4 +1,5 @@
 import { Document, model, Model, Schema } from "mongoose";
+import { uuid } from "uuidv4";
 import { LockerStatus } from "../types/locker";
 
 export interface ILocker extends Document {
@@ -11,6 +12,12 @@ export interface ILocker extends Document {
 };
 
 export const LockerSchema: Schema = new Schema<ILocker>({
+    id: {
+        type: String,
+        default: uuid,
+        required: true,
+        unique: true,
+    },
     bloqId: {
         type: Schema.Types.ObjectId,
         required: true,

@@ -1,4 +1,5 @@
 import { Document, model, Model, Schema } from "mongoose";
+import { uuid } from "uuidv4";
 import { RentSize, RentStatus } from "../types/rent";
 
 // I left updatedAt because both created and this are automatically managed by mongoose
@@ -16,6 +17,12 @@ export interface IRent extends Document {
 };
 
 export const RentSchema: Schema = new Schema<IRent>({
+    id: {
+        type: String,
+        default: uuid,
+        required: true,
+        unique: true,
+    },
     lockerId: {
         type: Schema.Types.ObjectId,
         required: false,
