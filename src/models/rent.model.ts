@@ -1,17 +1,17 @@
 import { Document, model, Model, Schema } from "mongoose";
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from 'uuid';
 import { RentSize, RentStatus } from "../types/rent";
 
 // I left updatedAt because both created and this are automatically managed by mongoose
 // once you activate the timestamps on the schema
 export interface IRent extends Document {
-    id: Schema.Types.ObjectId;
+    id: string;
     weight: number;
     size: RentSize;
     status: RentStatus;
     createdAt: Date;
     updatedAt: Date;
-    lockerId?: Schema.Types.ObjectId;
+    lockerId?: string;
     droppedOffAt?: Date;
     pickedUpAt?: Date;
 };
@@ -19,12 +19,11 @@ export interface IRent extends Document {
 export const RentSchema: Schema = new Schema<IRent>({
     id: {
         type: String,
-        default: uuid,
-        required: true,
-        unique: true,
+        default: uuidv4,
+        unique: true
     },
     lockerId: {
-        type: Schema.Types.ObjectId,
+        type: String,
         required: false,
         ref: 'Locker'
     },
@@ -51,7 +50,15 @@ export const RentSchema: Schema = new Schema<IRent>({
         required: false
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    collection: 'Rent',
+    toJSON: {
+        transform: function (doc, ret) {
+            delete ret._id;
+            delete ret.__v;
+            return ret;
+        }
+    }
 })
 
 const Rent: Model<IRent> = model<IRent>('Rent', RentSchema);

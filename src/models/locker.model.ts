@@ -1,10 +1,10 @@
 import { Document, model, Model, Schema } from "mongoose";
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from 'uuid';
 import { LockerStatus } from "../types/locker";
 
 export interface ILocker extends Document {
-    id: Schema.Types.ObjectId;
-    bloqId: Schema.Types.ObjectId;
+    id: string;
+    bloqId: string;
     status: LockerStatus;
     isOccupied: Boolean;
     createdAt: Date;
@@ -14,12 +14,11 @@ export interface ILocker extends Document {
 export const LockerSchema: Schema = new Schema<ILocker>({
     id: {
         type: String,
-        default: uuid,
-        required: true,
-        unique: true,
+        default: uuidv4,
+        unique: true
     },
     bloqId: {
-        type: Schema.Types.ObjectId,
+        type: String,
         required: true,
         ref: 'Bloq'
     },
@@ -35,7 +34,15 @@ export const LockerSchema: Schema = new Schema<ILocker>({
     }
 
 }, {
-    timestamps: true
+    timestamps: true,
+    collection: 'Locker',
+    toJSON: {
+        transform: function (doc, ret) {
+            delete ret._id;
+            delete ret.__v;
+            return ret;
+        }
+    }
 })
 
 const Locker: Model<ILocker> = model<ILocker>('Locker', LockerSchema);
