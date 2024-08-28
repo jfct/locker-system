@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import BloqController from '../controllers/bloq.controller';
-import { handleValidationErrors } from '../middleware/handleValidation.middleware';
+import { handleValidationErrors } from '../middleware/handle-validation.middleware';
 import { createBloqValidator, updateBloqValidator } from '../validations/bloq.validation';
 import { idValidation } from '../validations/validation';
 

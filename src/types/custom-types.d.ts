@@ -1,5 +1,9 @@
-import { Request } from "express"
+import { Request } from "express";
 
+// Param types
+export type IdParams = { id: string };
+
+// Request types
 export interface RequestWithBody<T> extends Request {
     body: T
 }
