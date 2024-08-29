@@ -3,7 +3,7 @@ import BloqModel, { Bloq, IBloq, IBloqPopulated } from "../models/bloq.model";
 import BaseService from "./base.service";
 
 
-class BloqService extends BaseService<IBloq, CreateBloqDto, UpdateBloqDto, typeof BloqModel> {
+class BloqService extends BaseService<IBloq, CreateBloqDto, UpdateBloqDto> {
     constructor() {
         super(BloqModel);
     }

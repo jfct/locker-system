@@ -114,7 +114,6 @@ class DeliveryService {
         // One option could be ge
         const locker = openLockers[0];
 
-
         await this.lockerService.update(locker.id, {
             status: LockerStatus.OPEN,
             isOccupied: true
