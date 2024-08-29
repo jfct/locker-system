@@ -1,0 +1,144 @@
+{
+  "info": {
+    "name": "Bloq_API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Bloq",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "http://localhost:3000/api/bloq",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"11 created bloq\",\n  \"address\": \"Porto, Portugal\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create Locker",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "http://localhost:3000/api/locker",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"bloqId\": \"4e3e38de-19dc-446f-96c9-faef60bd4497\",\n  \"asd\": \"asd\",\n  \"isOccupasied\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create Rent",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "http://localhost:3000/api/rent",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"weight\": 8\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Delivery Allocate",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "http://localhost:3000/api/delivery/allocate-rent",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"bloqId\": \"4e3e38de-19dc-446f-96c9-faef60bd4497\",\n  \"rentId\": \"90966f7d-1fc6-4159-8419-ebab7bc84c97\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "DropOff Rent",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "http://localhost:3000/api/delivery/dropoff-rent/90966f7d-1fc6-4159-8419-ebab7bc84c97"
+      }
+    },
+    {
+      "name": "Get All Bloqs",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:3000/api/bloq"
+      }
+    },
+    {
+      "name": "Get Bloq",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:3000/api/bloq/484e01be-1570-4ac1-a2a9-02aad3acc54e"
+      }
+    },
+    {
+      "name": "Get Locker",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:3000/api/locker/33e81132-b728-4099-a2a4-37d533e666c0"
+      }
+    },
+    {
+      "name": "Get Rent",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:3000/api/rent/84ba232e-ce23-4d8f-ae26-68616600df48"
+      }
+    },
+    {
+      "name": "Pickup Rent",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "http://localhost:3000/api/delivery/pickup-rent/90966f7d-1fc6-4159-8419-ebab7bc84c97"
+      }
+    },
+    {
+      "name": "Get Bloq Id",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:3000/api/bloq/4e3e38de-19dc-446f-96c9-faef60bd4497"
+      }
+    }
+  ],
+  "variable": []
+}

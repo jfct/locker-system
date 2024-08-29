@@ -8,6 +8,37 @@ On start a migration will be ran to populate the information provided at start.
 
 You can also do a `docker-compose up -d mongodb mongo-express` and run locally with a `npm run dev` or `npm run start` after a build, just copy the `.env.example` to `.env` and change `mongodb` to `localhost` in the `MONGO_HOST`
 
+### Postman JSON
+
+I use bruno as my app, but I exported a postman viable .json collection of the endpoints I used, it's not all available(Just missing some PUT and DELETE), but the most important ones are there
+
+### Important endpoint
+
+The delivery route is the most important one, it contains these 3 calls
+
+#### Allocate a rent to a bloq
+Method: POST
+URL: http://localhost:3000/api/delivery/allocate-rent
+Description: We allocate a rent to a locker in the specified bloq
+
+```javascript
+// In body:
+{
+  "bloqId": "4e3e38de-19dc-446f-96c9-faef60bd4497",
+  "rentId": "90966f7d-1fc6-4159-8419-ebab7bc84c97"
+}
+```
+#### Dropoff rent
+Method: POST
+URL: http://localhost:3000/api/delivery/dropoff-rent/90966f7d-1fc6-4159-8419-ebab7bc84c97
+Description: We dropoff a rent, it will update the locker + rent
+
+#### Pickup rent
+Method: POST
+URL: http://localhost:3000/api/delivery/pickup-rent/90966f7d-1fc6-4159-8419-ebab7bc84c97
+Description: We pickup a rent, it will update the locker + rent, completing the delivery and opening up the locker
+
+
 ## Assumptions and decisions
 
 While reading and thinking about the problem at hand, both through the schemas and the data made available it was possible to retrieve some conclusions. 
