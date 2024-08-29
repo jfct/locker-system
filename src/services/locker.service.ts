@@ -5,7 +5,7 @@ import { RentStatus } from "../types/rent";
 import BaseService from "./base.service";
 
 
-class LockerService extends BaseService<ILocker, CreateLockerDto, UpdateLockerDto, typeof LockerModel> {
+class LockerService extends BaseService<ILocker, CreateLockerDto, UpdateLockerDto> {
     constructor() {
         super(LockerModel);
     }

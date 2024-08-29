@@ -7,8 +7,8 @@ import mongoose, { Document, Model } from "mongoose";
  * the Dto is usually a partial of the generic interface
  * THe U is the model of the service
  */
-abstract class BaseService<T extends Document, Dto extends Partial<T>, UpdateDto extends Partial<T>, U extends Model<T>> {
-    constructor(private model: U) { }
+abstract class BaseService<T extends Document, Dto extends Partial<T>, UpdateDto extends Partial<T>> {
+    constructor(private model: Model<T>) { }
 
     public async create(value: Dto): Promise<T> {
         const newObj = new this.model(value);
@@ -27,7 +27,7 @@ abstract class BaseService<T extends Document, Dto extends Partial<T>, UpdateDto
 
     public async delete(id: string, session?: mongoose.ClientSession): Promise<T | null> {
         return this.model
-            .findOneAndUpdate({ id }, { deleted: true }, { new: true, session })
+            .deleteOne({ id }, { new: true, session })
             .lean();
     }
 }

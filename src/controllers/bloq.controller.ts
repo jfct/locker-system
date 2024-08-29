@@ -5,11 +5,8 @@ import BaseController from "./base.controller";
 
 
 class BloqController extends BaseController<CreateBloqDto> {
-    protected service: BloqService;
-
-    constructor() {
+    constructor(protected readonly service: BloqService) {
         super();
-        this.service = new BloqService();
     }
 
     public async getAll(req: Request, res: Response, next: NextFunction) {

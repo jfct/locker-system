@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import { config } from './config';
+import { globalErrorHandler } from './middleware/global-error-handler.middleware';
 import apiRouter from './routes';
 
 // Mongoose connection
@@ -19,6 +20,9 @@ app.use('/api', apiRouter);
 
 const PORT = process.env.PORT || 3000;
 
+// Global handler for errors
+app.use(globalErrorHandler);
+
 app.listen(PORT, () => console.log(`Bloq service running on port ${PORT}`));
 
-module.exports = { app };
+export { app };

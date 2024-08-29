@@ -5,7 +5,7 @@ import { RentSize, RentSizeLimits, RentStatus } from "../types/rent";
 import BaseService from "./base.service";
 
 
-class RentService extends BaseService<IRent, CreateRentDto, UpdateRentDto, typeof RentModel> {
+class RentService extends BaseService<IRent, CreateRentDto, UpdateRentDto> {
     constructor() {
         super(RentModel);
     }
@@ -23,7 +23,6 @@ class RentService extends BaseService<IRent, CreateRentDto, UpdateRentDto, typeo
 
     // I assumed a max weight 
     private sizeClass(weight: number): RentSize {
-        const maxWeight = process.env.MAX_RENT_WEIGHT || "30";
         switch (true) {
             case (weight > 0 && weight <= RentSizeLimits.XS):
                 return RentSize.XS;
@@ -33,7 +32,7 @@ class RentService extends BaseService<IRent, CreateRentDto, UpdateRentDto, typeo
                 return RentSize.M;
             case (weight > RentSizeLimits.M && weight <= RentSizeLimits.L):
                 return RentSize.L;
-            case (weight > RentSizeLimits.L && weight <= parseInt(maxWeight)):
+            case (weight > RentSizeLimits.L && weight <= RentSizeLimits.XL):
                 return RentSize.XL;
 
             default:

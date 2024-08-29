@@ -4,11 +4,8 @@ import BaseController from "./base.controller";
 
 
 class RentController extends BaseController<CreateRentDto> {
-    protected service: RentService;
-
-    constructor() {
+    constructor(protected readonly service: RentService) {
         super();
-        this.service = new RentService();
     }
 }
 
