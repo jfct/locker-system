@@ -41,11 +41,11 @@ Some important considerations, due to not using replicas or shards on mongo we d
 
 Other important improvements could be the error & logging, the worker queue to deal automatically with the rents allocating to the lockers, but I still don't have enough info on how the location of bloqs & user allocation is made, it would be something to clarify and see how to do after.
 
-### If running locally
+## If running locally
 
 Use 'localhost' in the `MONGO_HOST` env variable, if running the app outside docker containers
 
-### Tools
+## Tools
 -node
 -express
 -express-validator
