@@ -6,6 +6,8 @@ Just run the `docker-compose up` command and you should have 3 containers ready.
 
 On start a migration will be ran to populate the information provided at start.
 
+You can also do a `docker-compose up -d mongodb mongo-express` and run locally with a `npm run dev` or `npm run start` after a build, just copy the `.env.example` to `.env` and change `mongodb` to `localhost` in the `MONGO_HOST`
+
 ## Assumptions and decisions
 
 While reading and thinking about the problem at hand, both through the schemas and the data made available it was possible to retrieve some conclusions. 
