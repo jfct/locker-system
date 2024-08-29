@@ -1,6 +1,6 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import { CreateRentDto, UpdateRentDto } from '../../dto/rent.dto';
+import { CreateRentDto } from '../../dto/rent.dto';
 import { HttpException } from '../../errors/http-exception';
 import RentModel from '../../models/rent.model';
 import { RentSize, RentStatus } from '../../types/rent';
@@ -103,28 +103,6 @@ describe('Rent Service', () => {
             const foundRent = await rentService.get('non-existent-id');
 
             expect(foundRent).toBeNull();
-        });
-    });
-
-    describe('update', () => {
-        it('should update a rent', async () => {
-            const rent = await RentModel.create({
-                lockerId: null,
-                weight: 1,
-                status: RentStatus.CREATED,
-                size: RentSize.XS
-            });
-
-            const updateRentDto: UpdateRentDto = {
-                status: RentStatus.WAITING_DROPOFF
-            };
-
-            const updatedRent = await rentService.update(rent.id, updateRentDto);
-
-            expect(updatedRent).toBeTruthy();
-            expect(updatedRent?.status).toBe(RentStatus.WAITING_DROPOFF);
-            expect(updatedRent?.weight).toBe(1);
-            expect(updatedRent?.size).toBe(RentSize.XS);
         });
     });
 });

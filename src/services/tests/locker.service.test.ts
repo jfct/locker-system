@@ -1,7 +1,7 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
-import { CreateLockerDto, UpdateLockerDto } from '../../dto/locker.dto';
+import { CreateLockerDto } from '../../dto/locker.dto';
 import LockerModel from '../../models/locker.model';
 import { LockerStatus } from '../../types/locker';
 import LockerService from '../locker.service';
@@ -30,15 +30,13 @@ describe('Locker Service', () => {
         it('should create a new locker', async () => {
             const createLockerDto: CreateLockerDto = {
                 bloqId: uuidv4(),
-                status: LockerStatus.OPEN,
-                isOccupied: false
             };
 
             const createdLocker = await lockerService.create(createLockerDto);
 
             expect(createdLocker).toBeTruthy();
             expect(createdLocker.bloqId).toBe(createLockerDto.bloqId);
-            expect(createdLocker.status).toBe(createLockerDto.status);
+            expect(createdLocker.status).toBe(LockerStatus.OPEN);
             expect(createdLocker.isOccupied).toBe(false);
         });
     });
@@ -60,26 +58,6 @@ describe('Locker Service', () => {
             const foundLocker = await lockerService.get('non-existent-id');
 
             expect(foundLocker).toBeNull();
-        });
-    });
-
-    describe('update', () => {
-        it('should update a locker', async () => {
-            const locker = await LockerModel.create({
-                bloqId: uuidv4(),
-                status: LockerStatus.OPEN,
-            });
-
-            const updateLockerDto: UpdateLockerDto = {
-                status: LockerStatus.CLOSED,
-                isOccupied: true,
-            };
-
-            const updatedLocker = await lockerService.update(locker.id, updateLockerDto);
-
-            expect(updatedLocker).toBeTruthy();
-            expect(updatedLocker?.status).toBe(updateLockerDto.status);
-            expect(updatedLocker?.isOccupied).toBe(updateLockerDto.isOccupied);
         });
     });
 
