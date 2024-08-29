@@ -11,12 +11,12 @@ const rentController = new RentController(rentService);
 
 // GET
 rentRouter.get('/:id', idValidation, handleValidationErrors, rentController.get.bind(rentController));
-// TODO: A list of rents?
-// rentRouter.get('/', getRentsValidator, validate, getRents);
 
 // POST
 rentRouter.post('/', createRentValidator, handleValidationErrors, rentController.create.bind(rentController));
 
+// We remove the update for the rent individually because this is tightly coupled with locker
+// So we only allow for this in specific endpoints on the delivery facade system
 // PUT
 rentRouter.put('/:id', [...idValidation, ...updateRentValidator], handleValidationErrors, rentController.update.bind(rentController));
 
