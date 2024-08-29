@@ -32,6 +32,7 @@ export class Migration1724854893943 implements MigrationInterface {
                 "title": "Bluberry Regent Street",
                 "address": "121 Regent St, Mayfair, London W1B 4TB, United Kingdom",
                 createdAt: startDate,
+                updatedAt: startDate,
                 __v: 0
             }
         ]);

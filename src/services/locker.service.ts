@@ -10,6 +10,15 @@ class LockerService extends BaseService<ILocker, CreateLockerDto, UpdateLockerDt
         super(LockerModel);
     }
 
+    public async create(value: CreateLockerDto): Promise<ILocker> {
+        return LockerModel.create({
+            bloqId: value.bloqId,
+            status: LockerStatus.OPEN,
+            isOccupied: false
+        });
+    }
+
+
     // Look for open lockers in a specific bloq
     public async checkOpenLockers(bloqId: string): Promise<ILocker[] | null> {
         // Validate if the bloq exists
@@ -38,11 +47,8 @@ class LockerService extends BaseService<ILocker, CreateLockerDto, UpdateLockerDt
                 }
             ]
         );
-
         return lockers;
     }
-
-
 }
 
 export default LockerService;

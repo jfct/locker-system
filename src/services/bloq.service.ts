@@ -13,9 +13,8 @@ class BloqService extends BaseService<IBloq, CreateBloqDto, UpdateBloqDto> {
     }
 
     public async getAll(): Promise<Bloq[] | null> {
-        return BloqModel.find<IBloqPopulated>({});
+        return BloqModel.find<IBloq>({});
     }
-
 }
 
 export default BloqService;
