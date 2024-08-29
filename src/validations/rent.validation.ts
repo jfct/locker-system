@@ -4,27 +4,7 @@ import { RentSize, RentStatus } from "../types/rent";
 export const createRentValidator = [
     body('weight')
         .isNumeric()
-        .withMessage('Weight must be a number'),
-    body('size')
-        .isIn(Object.values(RentSize))
-        .withMessage('Invalid rent size'),
-    body('status')
-        .isIn(Object.values(RentStatus))
-        .withMessage('Invalid rent status'),
-    body('lockerId')
-        .optional()
-        .isUUID()
-        .withMessage('Invalid locker Id'),
-    body('droppedOffAt')
-        .optional()
-        .isISO8601()
-        .toDate()
-        .withMessage('Invalid drop-off date'),
-    body('pickedUpAt')
-        .optional()
-        .isISO8601()
-        .toDate()
-        .withMessage('Invalid pick-up date'),
+        .withMessage('Weight must be a number')
 ];
 
 export const updateRentValidator = [
