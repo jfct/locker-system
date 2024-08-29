@@ -17,7 +17,7 @@ bloqRouter.get('/:id', idValidation, handleValidationErrors, bloqController.get.
 // POST
 bloqRouter.post('/', createBloqValidator, handleValidationErrors, bloqController.create.bind(bloqController));
 
-// PUT
+// PUT 
 bloqRouter.put('/:id', [...idValidation, ...updateBloqValidator], handleValidationErrors, bloqController.update.bind(bloqController));
 
 // DELETE
