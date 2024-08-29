@@ -17,9 +17,9 @@ I use bruno as my app, but I exported a postman viable .json collection of the e
 The delivery route is the most important one, it contains these 3 calls
 
 #### Allocate a rent to a bloq
-Method: POST
-URL: http://localhost:3000/api/delivery/allocate-rent
-Description: We allocate a rent to a locker in the specified bloq
+- Method: POST
+- URL: http://localhost:3000/api/delivery/allocate-rent
+- Description: We allocate a rent to a locker in the specified bloq
 
 ```javascript
 // In body:
@@ -29,14 +29,14 @@ Description: We allocate a rent to a locker in the specified bloq
 }
 ```
 #### Dropoff rent
-Method: POST
-URL: http://localhost:3000/api/delivery/dropoff-rent/90966f7d-1fc6-4159-8419-ebab7bc84c97
-Description: We dropoff a rent, it will update the locker + rent
+- Method: POST
+- URL: http://localhost:3000/api/delivery/dropoff-rent/90966f7d-1fc6-4159-8419-ebab7bc84c97
+- Description: We dropoff a rent, it will update the locker + rent
 
 #### Pickup rent
-Method: POST
-URL: http://localhost:3000/api/delivery/pickup-rent/90966f7d-1fc6-4159-8419-ebab7bc84c97
-Description: We pickup a rent, it will update the locker + rent, completing the delivery and opening up the locker
+- Method: POST
+- URL: http://localhost:3000/api/delivery/pickup-rent/90966f7d-1fc6-4159-8419-ebab7bc84c97
+- Description: We pickup a rent, it will update the locker + rent, completing the delivery and opening up the locker
 
 
 ## Assumptions and decisions
