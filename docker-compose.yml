@@ -5,12 +5,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    env_file:
-      - .env
     environment:
       - MONGODB_URI=mongodb://admin:password@mongodb:27017/bloq_db
-      - REDIS_URL=redis://redis:6379
-      - QUEUE_HOST=redis://redis:6379
+      - MONGO_USER=admin
+      - MONGO_PWD=password
+      - MONGO_HOST=mongodb
+      - MONGO_DB=bloq_db
     depends_on:
       - mongodb
 

@@ -12,4 +12,4 @@ RUN npm ci
 # Copy files
 COPY . .
 
-CMD ["npm", "start"]
+CMD npm run migration:up && npm start
