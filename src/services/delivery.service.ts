@@ -6,6 +6,12 @@ import BloqService from "./bloq.service";
 import LockerService from "./locker.service";
 import RentService from "./rent.service";
 
+interface VerifyLockerAndRentStatusParams {
+    lockerStatus: LockerStatus;
+    isOccupied: boolean;
+    rentStatus: RentStatus
+}
+
 /**
  * TODO: Most of the endpoints in this class should be done in a transaction but for that 
  * to work in mongo we would have to have replicas or a sharded cluster, so for that reason we skip the transaction
@@ -17,7 +23,6 @@ class DeliveryService {
         private lockerService: LockerService,
         private rentService: RentService
     ) { }
-
 
     /**
      * 
@@ -39,6 +44,12 @@ class DeliveryService {
         if (!rent.lockerId) {
             throw new HttpException(400, "No locker assigned for this rent");
         }
+
+        this.verifyLockerAndRentStatus({
+            lockerStatus: LockerStatus.OPEN,
+            isOccupied: false,
+            rentStatus: RentStatus.DELIVERED
+        })
 
         await this.lockerService.update(rent.lockerId, {
             status: LockerStatus.OPEN,
@@ -71,6 +82,12 @@ class DeliveryService {
         if (!rent.lockerId) {
             throw new HttpException(400, "No locker assigned for this rent");
         }
+
+        this.verifyLockerAndRentStatus({
+            lockerStatus: LockerStatus.CLOSED,
+            isOccupied: true,
+            rentStatus: RentStatus.WAITING_PICKUP
+        })
 
         await this.lockerService.update(rent.lockerId, {
             status: LockerStatus.CLOSED,
@@ -114,17 +131,74 @@ class DeliveryService {
         // One option could be ge
         const locker = openLockers[0];
 
-        await this.lockerService.update(locker.id, {
-            status: LockerStatus.OPEN,
-            isOccupied: true
+        this.verifyLockerAndRentStatus({
+            lockerStatus: LockerStatus.OPEN,
+            isOccupied: true,
+            rentStatus: RentStatus.WAITING_DROPOFF
         })
 
+        // We always update first the rent and only after the locker
         const updatedRent = await this.rentService.update(rentId, {
             status: RentStatus.WAITING_DROPOFF,
             lockerId: locker.id
         })
 
+        await this.lockerService.update(locker.id, {
+            status: LockerStatus.OPEN,
+            isOccupied: true
+        })
+
         return updatedRent;
+    }
+
+
+    /**
+     * 
+     * Verifies both the locker status, the occupation and the rent status and returns true 
+     * if it's valid
+     * 
+     * Should call this to make sure we are doing a valid operation
+     * 
+     */
+    public verifyLockerAndRentStatus({
+        lockerStatus,
+        isOccupied,
+        rentStatus
+    }: VerifyLockerAndRentStatusParams): boolean {
+        // Open + Not Occupied = Open
+        // If we are trying to "OPEN" the locker without the rent status being delivered
+        if (
+            (rentStatus !== RentStatus.DELIVERED)
+            && (lockerStatus === LockerStatus.OPEN && !isOccupied)
+        ) {
+            throw new HttpException(400, "This locker has a rent yet to be picked up or delivered")
+        }
+
+        // Open + Occupied = Waiting dropoff
+        // If we are trying to mark the locker as "OCCUPIED" without the rent being waiting for dropoff signal
+        if (
+            rentStatus !== RentStatus.WAITING_DROPOFF
+            && (lockerStatus === LockerStatus.OPEN && isOccupied)
+        ) {
+            throw new HttpException(400, "The locker does not have a rent that is waiting for a dropoff")
+        }
+
+        // Closed + Occupied = Waiting pickup
+        // If we are trying to "CLOSE" and OCCUPY the locker but the rent is not on the PICKUP status
+        if (
+            rentStatus != RentStatus.WAITING_PICKUP
+            && (lockerStatus === LockerStatus.CLOSED && isOccupied)
+        ) {
+            throw new HttpException(400, "The locker cannot be closed and occupied without a rent ready for pickup")
+        }
+
+        // For now I assume this is not possible
+        // Closed + Not Occupied = Impossible/Maintenance/Reservation? 
+        if (lockerStatus === LockerStatus.CLOSED && !isOccupied) {
+            throw new HttpException(400, "The locker cannot be closed and not occupied")
+        }
+
+        return true;
     }
 }
 
