@@ -11,9 +11,10 @@ const lockerController = new LockerController();
 lockerRouter.get('/:id', idValidation, handleValidationErrors, lockerController.get.bind(lockerController));
 // TODO: A list of lockers?
 //lockerRouter.get('/', [...idValidation, ...getLockersByBloqValidation], handleValidationErrors, lockerController.get.bind(lockerController));
+lockerRouter.get('/open/:id', idValidation, handleValidationErrors, lockerController.storeRent.bind(lockerController));
 
 // POST
-lockerRouter.post('/', [...idValidation, ...createLockerValidation], handleValidationErrors, lockerController.create.bind(lockerController));
+lockerRouter.post('/', createLockerValidation, handleValidationErrors, lockerController.create.bind(lockerController));
 
 // PUT
 lockerRouter.put('/:id', [...idValidation, ...updateLockerValidation], handleValidationErrors, lockerController.update.bind(lockerController));

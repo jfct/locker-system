@@ -13,7 +13,7 @@ rentRouter.get('/:id', idValidation, handleValidationErrors, rentController.get.
 // rentRouter.get('/', getRentsValidator, validate, getRents);
 
 // POST
-rentRouter.post('/', [...idValidation, ...createRentValidator], handleValidationErrors, rentController.create.bind(rentController));
+rentRouter.post('/', createRentValidator, handleValidationErrors, rentController.create.bind(rentController));
 
 // PUT
 rentRouter.put('/:id', [...idValidation, ...updateRentValidator], handleValidationErrors, rentController.update.bind(rentController));

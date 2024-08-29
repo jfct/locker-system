@@ -1,5 +1,7 @@
 import { Document, model, Model, Schema } from "mongoose";
 import { v4 as uuidv4 } from 'uuid';
+import { ILocker } from "./locker.model";
+import { schemaOptions } from "./schema-options";
 
 export interface Bloq {
     title: string;
@@ -13,6 +15,10 @@ export interface IBloq extends Bloq, Document {
     createdAt: Date;
     updatedAt: Date;
 };
+
+export interface IBloqPopulated extends IBloq {
+    lockers: ILocker[]
+}
 
 export const BloqSchema: Schema = new Schema<IBloq>({
     id: {
@@ -32,15 +38,15 @@ export const BloqSchema: Schema = new Schema<IBloq>({
 }, {
     timestamps: true,
     collection: 'Bloq',
-    toJSON: {
-        transform: function (doc, ret) {
-            delete ret._id;
-            delete ret.__v;
-            return ret;
-        }
-    }
-
+    ...schemaOptions
 })
+
+// Virtual field for lockers
+BloqSchema.virtual('lockers', {
+    ref: 'Locker',
+    localField: 'id',
+    foreignField: 'bloqId'
+});
 
 const BloqModel: Model<IBloq> = model<IBloq>('Bloq', BloqSchema);
 export default BloqModel;

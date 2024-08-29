@@ -9,6 +9,7 @@ const bloqRouter = Router();
 const bloqController = new BloqController();
 
 // GET
+bloqRouter.get('/', bloqController.getAll.bind(bloqController));
 bloqRouter.get('/:id', idValidation, handleValidationErrors, bloqController.get.bind(bloqController));
 
 // POST

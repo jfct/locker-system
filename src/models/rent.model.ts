@@ -1,13 +1,12 @@
 import { Document, model, Model, Schema } from "mongoose";
 import { v4 as uuidv4 } from 'uuid';
 import { RentSize, RentStatus } from "../types/rent";
+import { schemaOptions } from "./schema-options";
 
 export interface Rent {
     weight: number;
     size: RentSize;
     status: RentStatus;
-    createdAt: Date;
-    updatedAt: Date;
     lockerId?: string;
     droppedOffAt?: Date;
     pickedUpAt?: Date;
@@ -57,13 +56,7 @@ export const RentSchema: Schema = new Schema<IRent>({
 }, {
     timestamps: true,
     collection: 'Rent',
-    toJSON: {
-        transform: function (doc, ret) {
-            delete ret._id;
-            delete ret.__v;
-            return ret;
-        }
-    }
+    ...schemaOptions
 })
 
 const RentModel: Model<IRent> = model<IRent>('Rent', RentSchema);

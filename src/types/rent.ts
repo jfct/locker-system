@@ -12,3 +12,11 @@ export enum RentSize {
     L = 'L',
     XL = 'XL'
 }
+
+export enum RentSizeLimits {
+    XS = 0,
+    S = 2,
+    M = 5,
+    L = 7,
+    XL = 10
+}

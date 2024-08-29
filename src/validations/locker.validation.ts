@@ -3,9 +3,9 @@ import { LockerStatus } from '../types/locker';
 
 export const createLockerValidation = [
     body('bloqId')
-        .isString()
+        .isUUID()
         .notEmpty()
-        .withMessage('bloqId is required and must be a string'),
+        .withMessage('bloqId is required and must be an UUID'),
     body('status')
         .isIn(Object.values(LockerStatus))
         .withMessage('Invalid locker status'),
